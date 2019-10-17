@@ -1,0 +1,750 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <style type="text/css">
+   .fade{
+    position:relative;
+    z-index:10;
+    background-color:rgba(255,255,255,0.5)
+   }
+   .fade2{
+    position:relative;
+    z-index:10;
+    background-color:rgba(255,255,255)
+   }
+   </style>
+   <body style="width:100%;height: 100%; margin: 0">
+       <div id = "filter_kw" style = "width:20%;height:80%;overflow:auto;float:left;position:relative;z-index:10;background-color:rgba(255,255,255,0.5)">
+        Select keyword:<br>
+        <p><input type="checkbox" name="category" value="media"/>Media </p>
+        <p><input type="checkbox" name="category" value="google"/>Google</p>
+        <p><input type="checkbox" name="category" value="data analysis"/>Data analysis</p>    
+        <p><input type="checkbox" name="category" value="diffusion processes"/>Diffusion processes</p>  
+        <p><input type="checkbox" name="category" value="twitter"/>Twitter</p>    
+
+        <p><input type="checkbox" name="category" value="fingerprint recognition"/>Fingerprint recognition </p>
+        <p><input type="checkbox" name="category" value="cooperation"/>Cooperation</p>    
+        <p><input type="checkbox" name="category" value="bayes methods"/>Bayes methods</p>    
+        <p><input type="checkbox" name="category" value="navigation"/>Navigation</p>    
+        
+        <p><input type="checkbox" name="category" value="stability"/>Stability </p>
+        <p><input type="checkbox" name="category" value="clouds"/>Clouds</p>
+        <p><input type="checkbox" name="category" value="clustering algorithms"/>Clustering algorithms</p>      
+        <p><input type="checkbox" name="category" value="coherence"/>Coherence</p>    
+        
+        <p><input type="checkbox" name="category" value="bipartite graph"/>Bipartite graph </p>
+        <p><input type="checkbox" name="category" value="text mining"/>Text mining</p>
+        <p><input type="checkbox" name="category" value="context awareness"/>Context awareness</p>    
+        <p><input type="checkbox" name="category" value="environmentally friendly manufacturing techniques"/>Environmentally friendly manufacturing techniques</p>      
+         
+        <p><input id="btnOperate" type="button" value="submit" onclick="static_num()" /></p>
+        <p><input id="btnOperate" type="button" value="recover" onclick="recover()" /></p>
+       </div>
+       <div id="container3" style="height: 80%;width:40%;float:right;overflow:auto;">
+       </div>
+       <div id="container" style="width: 100%;height:100%;position:absolute;"></div>
+       <div style="clear:both;"></div>
+      <div id="container4" style="height: 20%;width:20%;float:left;position:relative;z-index:10;background-color:rgba(255,255,255,0.5)">
+        <p><input type="range" id = "controlValue" name="points" min="0" max="1000" step = "1" /></p>
+        <p><input type="range" id = "controlKeyword" name="points" min="0" max="1000" step = "1" /></p>
+        <p><input type="range" id = "controlAttribute" name="points" min="0" max="1000" step = "1" /></p>
+        <p><button onclick="controlSimilarity()">submit</button><button onclick="recover()">recover</button></p>
+      </div>
+       <div id="container2" style="height: 20%;  width:80%;float:left;position:relative;z-index:10;"></div>
+
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+       <script type="text/javascript">
+
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var dom2 = document.getElementById("container2");
+var mySecondChart = echarts.init(dom2);
+var dom3 = document.getElementById("container3");
+var mythirdChart = echarts.init(dom3);
+var app = {};
+//------------------
+var used_graph_links = [];
+var used_graph_nodes = [];
+//------------------
+option = null;
+myChart.showLoading();
+mySecondChart.showLoading();
+mythirdChart.showLoading()
+var graph;
+$.getJSON('data_1006.json', function (json) {
+  myChart.hideLoading();
+  mySecondChart.hideLoading();
+  mythirdChart.hideLoading();
+  graph = json;
+  var cnt = 0;
+  for(i = 0; i < graph.rlinks.length; i++){
+    if(graph.rlinks[i].value > 0.45){
+      cnt = cnt + 1;
+      used_graph_links.push(graph.rlinks[i]);
+    }
+  }
+  console.log(cnt);
+  console.log(used_graph_links.length);
+  used_graph_nodes = graph.rnodes;
+
+  //alert("1");
+  var m = new Map();
+    for(var i = 0; i < graph.nodes.length; i++)
+    {
+      var key = graph.nodes[i].name;
+      var value = graph.nodes[i].des;
+      m.set(key,value);
+    }
+
+  option = 
+  {
+    tooltip: {
+      formatter: function (x) {
+        return x.data.des;
+      }
+    },
+
+    series: 
+    [
+      {
+        type: 'graph',
+        layout: 'none',
+        symbolSize: 90,
+        roam: true,
+        edgeSymbol: ['circle', 'none'],  
+        //后者改为none箭头可消失，改为arrow有箭头
+        edgeSymbolSize: [1, 8],
+        edgeLabel: {
+          normal: {
+            textStyle: {
+              fontSize: 20
+            }
+          }
+        },
+
+        force: {
+            //repulsion: 5500,
+						repulsion: [1,2000],
+            edgeLength: [1, 500]
+        },
+        
+        draggable: true,
+				focusNodeAdjacency: true,  //悬浮，与其相关的节点都会highlight
+
+        itemStyle: {
+          emphasis: {
+            color: '#EAC100'
+          }
+        },
+
+        lineStyle: {
+          normal: {
+            width: 0,   //值为0不显示线
+            color: '#3C3C3C',
+            opacity: 0,
+            type: 'dashed'
+          },
+        },
+        
+        edgeLabel: {
+          normal: {
+            show: true,  //显示线上文字
+            formatter: function (x) {
+              return x.data.name;
+            },
+						textStyle: {
+						  fontSize: 11,
+            }
+          }
+        },
+
+        label: {
+          normal: {
+            show: false,  //换成词云后  这个可以改成false   不显示数字
+            textStyle: {
+							fontSize: 10
+            }
+          },
+  		    emphasis:{
+  		      show:false  //****true高亮显示数字编号，正式论文false不显示
+            
+  	      }
+        },
+        data: used_graph_nodes,
+        links: used_graph_links,
+        emphasis: {
+                lineStyle: {
+                    width: 10
+                }
+            }
+      }
+
+
+    ]
+  };
+    myChart.setOption(option);
+    var papers = [];
+        var papers2 = [];
+        var paper_no_similarity = [];
+        myChart.on("click", function (param){  
+          //交互功能0
+          $("#container3").addClass("fade2");
+          $("#container2").addClass("fade");
+          var nowid = param.name;
+          var len = graph.path.length;
+          nowdata = [];
+          nowlink = [];
+          console.log(nowid);
+          for(i = 0; i < len; i++)
+          {
+            if(graph.path[i].id == nowid){
+              console.log(graph.path[i]);
+              var dasb = graph.path[i];
+              pathh = dasb.path.split(" ");
+
+              for(j = 0; j < pathh.length-1; j++){
+                var nid = pathh[j];
+                console.log(nid);
+                for(k = 0; k < graph.nodes.length; k++){
+                  if(graph.nodes[k].name == nid){
+                    nowdata.push(graph.nodes[k]);
+                    break;
+                  }
+                }
+                if(j < pathh.length - 1){
+                  var nid2 = pathh[j+1];
+                  for(k = 0; k < graph.rlinks.length; k++){
+                    if(graph.rlinks[k].source == nid && graph.rlinks[k].target == nid2){
+                      nowlink.push(graph.rlinks[k]);
+                      break;
+                    }
+                    if(graph.rlinks[k].target == nid && graph.rlinks[k].source == nid2){
+                      var str = graph.rlinks[k].name.split(" ");
+                      var name = "";
+                      for(i = str.length - 1; i >= 0; i--){
+                        name = name + "  " + str[i];
+                      }
+                      var temp = {
+                        "source": graph.rlinks[k].target,
+                        "target": graph.rlinks[k].source,
+                        "name": name,
+                        "value": graph.rlinks[k].value,
+                        "value_sm": graph.rlinks[k].value_sm,
+                        "value_kw": graph.rlinks[k].value_kw,
+                        "value_at": graph.rlinks[k].value_at
+                      };
+                      // var sb = deepClone(temp.source);
+                      // temp.target = temp.source;
+                      // temp.source = sb;
+                      nowlink.push(temp);
+                      break;
+                    }
+                  }
+                }
+
+              }
+              break;
+            }
+          }
+          for(ii = 0; ii < nowlink.length; ii++){
+            nowlink[ii].value = 1;
+          }
+          console.log(nowdata);
+          console.log(nowlink);
+          option250 = {
+            tooltip: {
+              formatter: function (x) {
+                return x.data.des;
+              }
+            },
+
+            series: 
+            [
+              {
+                type: 'graph',
+                layout: 'force',
+                symbolSize: 90,
+                roam: true,
+                edgeSymbol: ['circle', 'arrow'],  
+                //后者改为none箭头可消失，改为arrow有箭头
+                edgeSymbolSize: [1, 8],
+                edgeLabel: {
+                  normal: {
+                    textStyle: {
+                      fontSize: 20
+                    }
+                  }
+                },
+
+                force: {
+                    //repulsion: 5500,
+                    repulsion: 5000 ,
+                    edgeLength: 500
+                },
+                
+                draggable: true,
+                focusNodeAdjacency: true,  //悬浮，与其相关的节点都会highlight
+
+                itemStyle: {
+                  emphasis: {
+                    color: '#EAC100'
+                  }
+                },
+
+                lineStyle: {
+                  normal: {
+                    width: 1,   //值为0不显示线
+                    color: '#3C3C3C',
+                    
+                    curveness: 0.2
+                  }
+                },
+                
+                edgeLabel: {
+                  normal: {
+                    show: true,  //显示线上文字
+                    formatter: function (x) {
+                      return x.data.name;
+                    },
+
+                    textStyle: {
+                      fontSize: 20,
+                    }
+                  }
+                },
+
+                label: {
+                  normal: {
+                    show: false,  //换成词云后  这个可以改成false   不显示数字
+                    textStyle: {
+                      fontSize: 10
+                    }
+                  },
+              emphasis:{
+                  show:false  //****true高亮显示数字编号，正式论文false不显示
+                }
+                },
+                data: nowdata,
+                links: nowlink,
+              }
+
+            ]
+          };
+          mythirdChart.setOption(option250);
+          //交互功能1
+          if(param.name.search(">") == -1 && param.name.search("<") == -1){
+          //papers = "";
+          papers.splice(0, papers.length);
+          papers2.splice(0, papers.length);
+          paper_no_similarity.splice(0, paper_no_similarity.length);          
+          for(var i = 0; i < graph.links.length; i ++)
+          {
+            if(graph.links[i].source == option.series[0].data[param.dataIndex].name){
+              papers.push(graph.links[i].target);
+              paper_no_similarity.push(graph.links[i].value);
+            }
+          
+          } 
+          for(var i = 0; i < graph.links.length; i ++)
+          {
+              if(graph.links[i].target == option.series[0].data[param.dataIndex].name){
+              papers2.push(graph.links[i].source);
+              paper_no_similarity.push(graph.links[i].value);
+            }
+          
+          }  
+          //alert(papers.length);
+          option1 = {
+          title: {
+            text: 'References of this paper',
+          },
+          tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                  type: 'shadow'
+              }
+          },
+          legend: {
+              type:"scroll",
+          },
+          grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '1%',
+            containLabel: true
+          },
+          xAxis: {
+              type: 'value',
+              boundaryGap: [0, 0.01]
+          },
+          yAxis: {
+              type: 'category',
+              data: (function(){
+                var res = [];
+                var len = 0;
+                var finalLen = papers.length;
+                while(len++ < finalLen){
+                  dataa = papers.shift() + "";
+                  //alert(dataa);
+                  dataa = m.get(dataa);
+                  res.push(
+                    "This paper was referenced by——" + dataa,
+                  );
+
+                }
+                len = 0;
+                finalLen = papers2.length;
+                while(len++ < finalLen){
+                  dataa = papers2.shift() + "";
+                  //alert(dataa);
+                  dataa = m.get(dataa);
+                  res.push(
+                    dataa + " ——refers this paper",
+                  );
+
+                }
+                return res;
+              })()
+          },
+          series: [
+              {
+                  name: 'similarity',
+                  type: 'bar',
+                  data: (function(){
+                    var res = [];
+                    var len = 0;
+                    var finalLen = paper_no_similarity.length
+                    while(len++ < finalLen){
+                      datab = paper_no_similarity.shift();
+                      res.push(
+                        datab,
+                      );
+
+                    }
+
+                    return res;
+                  })()
+              },
+          ]
+        };
+
+          mySecondChart.setOption(option1);
+        }
+          //alert(datas);
+          //alert(param.dataIndex+':'+option.series[0].data[param.dataIndex].name);
+        });
+});
+
+var paperDic = [2,3,5,7,8,10,11,13,14,15,16,17,18,19,21,23,25,27,28,32,35,37,44,45,53,60,63,65,67,71,75,81,84,86,94,97,114,118,121,124,125,126];
+
+//控制3种值
+function controlSimilarity(){
+  var a = document.getElementById("controlValue").value / 1000;
+  var b = document.getElementById("controlKeyword").value / 1000;
+  var c = document.getElementById("controlAttribute").value / 1000;
+  var current_data = deepClone(graph.links);
+  var replica_data = deepClone(graph.links);
+  var data_length = graph.links.length;
+  for(i = 0; i < data_length; i++){
+     // current_data.push(graph.links[i]);
+    //console.log(graph.links[i]);
+    var aaa = graph.links[i].source;
+    var bbb = graph.links[i].target;
+    
+    for(j = 0; j < graph.force.length; j ++){
+      if(paperDic[graph.force[j].source] == aaa && paperDic[graph.force[j].target] == bbb){
+        var temp_f_1 = b * graph.force[j].value_kw + c * graph.force[j].value_at + graph.links[i].value * a;
+        // console.log(1000);
+        // console.log("sb");
+        // console.log(aaa);
+        // console.log(bbb);
+        // console.log(b * graph.force[j].value_kw);
+        // console.log(c * graph.force[j].value_at);
+        // console.log(graph.links[i].value * a);
+        // console.log(b * graph.force[j].value_kw + c * graph.force[j].value_at + replica_data[i].value * a)
+        // console.log(temp_f_1);
+        continue;
+      }
+    }
+    // console.log(aaa);
+    // console.log(bbb);
+    var temp_f = temp_f_1;
+    // console.log(a);
+    // console.log(b);
+    // console.log(c);
+    current_data[i].value = temp_f;
+    // console.log(graph.links[i].value);
+    // console.log(current_data[i].value);
+  }
+  option3 = {
+    tooltip: {
+      formatter: function (x) {
+        return x.data.des;
+      }
+    },
+
+    series: 
+    [
+      {
+        type: 'graph',
+        layout: 'force',
+        symbolSize: 90,
+        roam: true,
+        edgeSymbol: ['circle', 'none'],  
+        //后者改为none箭头可消失，改为arrow有箭头
+        edgeSymbolSize: [1, 8],
+        edgeLabel: {
+          normal: {
+            textStyle: {
+              fontSize: 20
+            }
+          }
+        },
+
+        force: {
+            //repulsion: 5500,
+            repulsion: [1,2000],
+            edgeLength: [1, 500]
+        },
+        
+        draggable: true,
+        focusNodeAdjacency: true,  //悬浮，与其相关的节点都会highlight
+
+        itemStyle: {
+          emphasis: {
+            color: '#EAC100'
+          }
+        },
+
+        lineStyle: {
+          normal: {
+            width: 1,   //值为0不显示线
+            color: '#3C3C3C'
+          }
+        },
+        
+        edgeLabel: {
+          normal: {
+            show: true,  //显示线上文字
+            formatter: function (x) {
+              return x.data.name;
+            },
+            textStyle: {
+              fontSize: 11,
+            }
+          }
+        },
+
+        label: {
+          normal: {
+            show: false,  //换成词云后  这个可以改成false   不显示数字
+            textStyle: {
+              fontSize: 10
+            }
+          },
+        emphasis:{
+          show:false  //****true高亮显示数字编号，正式论文false不显示
+          }
+        },
+        data: graph.nodes,
+        links: current_data,
+      }
+
+    ]
+  };
+    myChart.setOption(option3);
+}
+//恢复成原图
+function recover(){
+  myChart.setOption(option);
+}
+
+//深拷贝
+function deepClone(obj){
+    let objClone = Array.isArray(obj)?[]:{};
+    if(obj && typeof obj==="object"){
+        for(key in obj){
+            if(obj.hasOwnProperty(key)){
+                //判断ojb子元素是否为对象，如果是，递归复制
+                if(obj[key]&&typeof obj[key] ==="object"){
+                    objClone[key] = deepClone(obj[key]);
+                }else{
+                    //如果不是，简单复制
+                    objClone[key] = obj[key];
+                }
+            }
+        }
+    }
+    return objClone;
+}    
+
+//关键词过滤器
+function static_num() 
+{            
+    document.getElementById("btnOperate").onclick = function () {                
+        var selected_keyword_arr = [];    
+
+        var items = document.getElementsByName("category");                 
+        for (i = 0; i < items.length; i++) {                    
+            if (items[i].checked) {                      
+               selected_keyword_arr.push(items[i].value.toString().toLowerCase());
+            }                
+        }
+        if(selected_keyword_arr.length > 0){
+
+            var keyword_length = graph.keywords.length;
+            var selected_item = [];
+            // console.log(selected_item.length);
+            for (i = 0; i < keyword_length; i++){
+              var current_keyword = graph.keywords[i].keyword.toLowerCase().split(";");
+              // console.log(graph.keywords[i].keyword);
+              // console.log(current_keyword);
+              var current_keyword_l = current_keyword.length;
+              for(j = 0; j < current_keyword_l; j++){
+                  var flag = $.inArray(current_keyword[j],selected_keyword_arr);
+                  if(flag != -1){
+                    selected_item.push(graph.nodes[i]);
+                    // console.log(i);
+                    break;
+                  }
+              }
+            }
+            var len = graph.links.length;
+            var new_links = [];
+            for(i = 0; i < len; i++){
+                var a1 = graph.links[i].source;
+                var b1 = graph.links[i].target;
+                var len2 = selected_item.length;
+                var flag1 = 0;
+                var flag2 = 0;
+                for(j = 0; j < len2; j++){
+                  if(a1 == selected_item[j].name){
+                    flag1 = 1;
+                  }
+                  else if(b1 == selected_item[j].name){
+                    flag2 = 1;
+                  }
+                }
+                if(flag1 == 1 && flag2 == 1){
+                  new_links.push(graph.links[i]);
+                }
+            }
+            // console.log(selected_item);
+            // var graph_node_len = graph.nodes.length;
+            // var graph_node_filter = [];
+            // for(i = 0; i < graph_node_len; i++){
+            //   var flag = $.inArray(graph.keywords[i].keyword,selected_item);
+            //   if(flag == -1){
+            //     //delete graph_node_filter[i];
+            //     graph_node_filter.push(graph.nodes[i]);
+            //   }
+            // }
+            // console.log(graph_node_filter);
+            //alert(graph_node_filter.length);
+            //alert(graph.nodes.length);
+            option2 = {
+                tooltip: {
+                  formatter: function (x) {
+                    return x.data.des;
+                  }
+                },
+
+                series: 
+                [
+                  {
+                    type: 'graph',
+                    layout: 'force',
+                    symbolSize: 90,
+                    roam: true,
+                    edgeSymbol: ['circle', 'none'],  
+                    //后者改为none箭头可消失，改为arrow有箭头
+                    edgeSymbolSize: [1, 8],
+                    edgeLabel: {
+                      normal: {
+                        textStyle: {
+                          fontSize: 20
+                        }
+                      }
+                    },
+
+                    force: {
+                        //repulsion: 5500,
+                        repulsion: [1,2000],
+                        edgeLength: [1, 500]
+                    },
+                    
+                    draggable: true,
+                    focusNodeAdjacency: true,  //悬浮，与其相关的节点都会highlight
+
+                    itemStyle: {
+                      emphasis: {
+                        color: '#EAC100'
+                      }
+                    },
+
+                    lineStyle: {
+                      normal: {
+                        width: 1,   //值为0不显示线
+                        color: '#3C3C3C'
+                      }
+                    },
+                    
+                    edgeLabel: {
+                      normal: {
+                        show: true,  //显示线上文字
+                        formatter: function (x) {
+                          return x.data.name;
+                        },
+                        textStyle: {
+                          fontSize: 11,
+                        }
+                      }
+                    },
+
+                    label: {
+                      normal: {
+                        show: false,  //换成词云后  这个可以改成false   不显示数字
+                        textStyle: {
+                          fontSize: 10
+                        }
+                      },
+                      emphasis:{
+                        show:false  //****true高亮显示数字编号，正式论文false不显示
+                      }
+                    },
+                    data: selected_item,
+                    links: new_links,
+                  }
+
+                ]
+            };
+            console.log(selected_item.length);
+            myChart.setOption(option2);
+            // alert("选择的个数为：" + selected_keyword_arr.length);   
+
+        }
+         
+    };        
+}; 
+
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+{
+  "rnodes": [
+    {
+      "name": "2",
+      "des": "TextFlow: Towards Better Understanding of Evolving Topics in Text",
+      "symbol": "image://2.png",
+      "x": 1949.9931359745758,
+      "y": 1072.8631454278604
+    },
+    {
+      "name": "3",
+      "des": "Geometry-Based Edge Clustering for Graph Visualization",
+      "symbol": "image://3.png",
+      "x": 2028.7383732335657,
+      "y": 1000.6023116337215
+    },
+    {
+      "name": "5",
+      "des": "OpinionSeer: Interactive Visualization of Hotel Customer Feedback",
+      "symbol": "image://5.png",
+      "x": 1883.6183473375418,
+      "y": 988.5555810484454
+    },
+    {
+      "name": "7",
+      "des": "Context-Preserving, Dynamic Word Cloud Visualization",
+      "symbol": "image://7.png",
+      "x": 2243.035238618051,
+      "y": 1173.1140060727212
+    },
+    {
+      "name": "8",
+      "des": "Whisper: Tracing the Spatiotemporal Process of Information Diffusion in Real Time",
+      "symbol": "image://8.png",
+      "x": 2030.8548077818914,
+      "y": 1167.6432638711487
+    },
+    {
+      "name": "10",
+      "des": "FacetAtlas: Multifaceted Visualization for Rich Text Corpora",
+      "symbol": "image://10.png",
+      "x": 2132.3972890136497,
+      "y": 1074.2838207496986
+    },
+    {
+      "name": "11",
+      "des": "StoryFlow: Tracking the Evolution of Stories",
+      "symbol": "image://11.png",
+      "x": 1937.6323296048326,
+      "y": 1163.9542522779318
+    },
+    {
+      "name": "13",
+      "des": "Visual Analysis of the Air Pollution Problem in Hong Kong",
+      "symbol": "image://13.png",
+      "x": 1821.5201825792467,
+      "y": 1073.1196241549874
+    },
+    {
+      "name": "14",
+      "des": "OpinionFlow: Visual Analysis of Opinion Diffusion on Social Media",
+      "symbol": "image://14.png",
+      "x": 2114.421791602726,
+      "y": 949.9057874619157
+    },
+    {
+      "name": "15",
+      "des": "Visual analysis of route diversity",
+      "symbol": "image://15.png",
+      "x": 2303.96907399202,
+      "y": 1105.7836486659696
+    },
+    {
+      "name": "16",
+      "des": "Visual Exploration of Sparse Traffic Trajectory Data",
+      "symbol": "image://16.png",
+      "x": 1974.8721217731409,
+      "y": 926.9229755741075
+    },
+    {
+      "name": "17",
+      "des": "Visual Analysis of Topic Competition on Social Media",
+      "symbol": "image://17.png",
+      "x": 1774.311238861279,
+      "y": 1220.4176043721022
+    },
+    {
+      "name": "18",
+      "des": "DICON: Interactive Visual Analysis of Multidimensional Clusters",
+      "symbol": "image://18.png",
+      "x": 1630.1764149574453,
+      "y": 1221.065711519483
+    },
+    {
+      "name": "19",
+      "des": "EvoRiver: Visual Analysis of Topic Coopetition on Social Media",
+      "symbol": "image://19.png",
+      "x": 1797.6074832577372,
+      "y": 869.1942234534822
+    },
+    {
+      "name": "21",
+      "des": "Context preserving dynamic word cloud visualization",
+      "symbol": "image://21.png",
+      "x": 1581.7000914734676,
+      "y": 968.5621582198411
+    },
+    {
+      "name": "23",
+      "des": "Visualizing Mobility of Public Transportation System",
+      "symbol": "image://23.png",
+      "x": 1888.0006747770854,
+      "y": 807.8579802721434
+    },
+    {
+      "name": "25",
+      "des": "Understanding text corpora with multiple facets",
+      "symbol": "image://25.png",
+      "x": 1738.5293354226676,
+      "y": 1029.41808587593
+    },
+    {
+      "name": "27",
+      "des": "RankExplorer: Visualization of Ranking Changes in Large Time Series Data",
+      "symbol": "image://27.png",
+      "x": 2253.7713023164356,
+      "y": 946.6800233459475
+    },
+    {
+      "name": "28",
+      "des": "How Hierarchical Topics Evolve in Large Text Corpora",
+      "symbol": "image://28.png",
+      "x": 1986.3899420645632,
+      "y": 1258.2503714402867
+    },
+    {
+      "name": "32",
+      "des": "TopicPanorama: A full picture of relevant topics",
+      "symbol": "image://32.png",
+      "x": 1870.5568580492802,
+      "y": 1265.1005650906193
+    },
+    {
+      "name": "35",
+      "des": "ViSizer: A Visualization Resizing Framework",
+      "symbol": "image://35.png",
+      "x": 1918.2191517033664,
+      "y": 1353.3513939813606
+    },
+    {
+      "name": "37",
+      "des": "T-Watcher: A New Visual Analytic System for Effective Traffic Surveillance",
+      "symbol": "image://37.png",
+      "x": 1717.4991468588162,
+      "y": 1290.5861846721702
+    },
+    {
+      "name": "44",
+      "des": "An Uncertainty-Aware Approach for Exploratory Microblog Retrieval",
+      "symbol": "image://44.png",
+      "x": 2323.66244012534,
+      "y": 795.7812389831266
+    },
+    {
+      "name": "45",
+      "des": "LoyalTracker: Visualizing Loyalty Dynamics in Search Engines",
+      "symbol": "image://45.png",
+      "x": 1678.2403049733234,
+      "y": 942.6696683693012
+    },
+    {
+      "name": "53",
+      "des": "Visual Analytics in Urban Computing: An Overview",
+      "symbol": "image://53.png",
+      "x": 2399.687501527573,
+      "y": 968.1779851280652
+    },
+    {
+      "name": "60",
+      "des": "PeakVizor: Visual Analytics of Peaks in Video Clickstreams from Massive Open Online Courses",
+      "symbol": "image://60.png",
+      "x": 1601.4107100167594,
+      "y": 1065.3151905442649
+    },
+    {
+      "name": "63",
+      "des": "PieceStack: Toward Better Understanding of Stacked Graphs",
+      "symbol": "image://63.png",
+      "x": 2004.7795677304705,
+      "y": 837.063856540048
+    },
+    {
+      "name": "65",
+      "des": "Visual analysis of bi-directional movement behavior",
+      "symbol": "image://65.png",
+      "x": 2098.04852623563,
+      "y": 1381.1803833944614
+    },
+    {
+      "name": "67",
+      "des": "Embedding Spatio-Temporal Information into Maps by Route-Zooming",
+      "symbol": "image://67.png",
+      "x": 2052.7365835818123,
+      "y": 737.3021220614852
+    },
+    {
+      "name": "71",
+      "des": "SmartAdP: Visual Analytics of Large-scale Taxi Trajectories for Selecting Billboard Locations",
+      "symbol": "image://71.png",
+      "x": 2035.29320644237,
+      "y": 628.2368792179739
+    },
+    {
+      "name": "75",
+      "des": "Online Visual Analytics of Text Streams",
+      "symbol": "image://75.png",
+      "x": 2128.527073464053,
+      "y": 1204.8316903192174
+    },
+    {
+      "name": "81",
+      "des": "Towards Better Analysis of Deep Convolutional Neural Networks",
+      "symbol": "image://81.png",
+      "x": 1887.1688997755061,
+      "y": 1465.8775590531777
+    },
+    {
+      "name": "84",
+      "des": "TrendFocus: Visualization of trends in financial news with indicator sets",
+      "symbol": "image://84.png",
+      "x": 1524.0273695827598,
+      "y": 1187.5615292675614
+    },
+    {
+      "name": "86",
+      "des": "STAC: Enhancing stacked graphs for time series analysis",
+      "symbol": "image://86.png",
+      "x": 2200.931005382966,
+      "y": 1273.108369619726
+    },
+    {
+      "name": "94",
+      "des": "How ideas flow across multiple social groups",
+      "symbol": "image://94.png",
+      "x": 1957.5885180064192,
+      "y": 722.7348937491186
+    },
+    {
+      "name": "97",
+      "des": "Topic- and Time-Oriented Visual Text Analysis",
+      "symbol": "image://97.png",
+      "x": 1999.12466887062,
+      "y": 1564.100581363744
+    },
+    {
+      "name": "114",
+      "des": "MobiSeg: Interactive region segmentation using heterogeneous mobility data",
+      "symbol": "image://114.png",
+      "x": 2036.4994209239733,
+      "y": 1452.2696412188586
+    },
+    {
+      "name": "118",
+      "des": "Interactive visual co-cluster analysis of bipartite graphs",
+      "symbol": "image://118.png",
+      "x": 2366.6311037618507,
+      "y": 1289.556606319178
+    },
+    {
+      "name": "121",
+      "des": "NetworkSeer: Visual analysis for social network in MOOCs",
+      "symbol": "image://121.png",
+      "x": 1783.854509692344,
+      "y": 1461.5821343619198
+    },
+    {
+      "name": "124",
+      "des": "DropoutSeer: Visualizing learning patterns in Massive Open Online Courses for dropout reasoning and prediction",
+      "symbol": "image://124.png",
+      "x": 2437.5403838852426,
+      "y": 727.131672348933
+    },
+    {
+      "name": "125",
+      "des": "StreetVizor: Visual Exploration of Human-Scale Urban Forms Based on Street Views",
+      "symbol": "image://125.png",
+      "x": 2195.5101818306944,
+      "y": 1598.359755203617
+    },
+    {
+      "name": "126",
+      "des": "Analyzing the Training Processes of Deep Generative Models",
+      "symbol": "image://126.png",
+      "x": 2062.5348604142637,
+      "y": 1684.9493372532831
+    }
+  ]
+}
